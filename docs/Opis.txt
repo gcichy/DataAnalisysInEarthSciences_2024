@@ -1,0 +1,90 @@
+Katalog "dane_meteorologiczne" zawiera pliki w formacie csv ze stacji synoptycznych (synop), klimatologicznych (klimat) i opadowych (opad).
+Dane te pogrupowane są w zależności od kroku czasowego danych na dane miesięczne (m), dobowe (d) i terminowe (t).
+W katalogu znajdują się dane zweryfikowane, możliwe jest jednak, szczególnie dla roku bieżącego, wprowadzanie poprawek, wtedy plik csv
+zostaje podmieniony przez nową wersję i dodawana jest odpowiednia informacja w pliku (lista_zmian.txt)
+
+W katalogu głównym znajdują się:
+- wykaz stacji meteorologicznych zawierający kod stacji, nazwę stacji i kod pięcioznakowy stacji,
+- mapy zawartości danych dla poszczególnych typów stacji (oznaczone kodem pięcioznakowym).
+  W mapach litery S,K,O oznaczają dane dla roku pomiarowego, a N oznacza, że rok pomiarowy jest niepełny. Metadane na mapach 
+  (współrzędne geograficzne i nazwa rzeki) mogą być podane w przybliżeniu. Oficjalne metadane stacji dostępne są w Wydziale Inspekcji Sieci Hydrologiczno-Meteorologicznej.
+- katalogi z danymi pomiarowymi (dobowe, miesięczne, terminowe).
+  Katalogi te są podzielone na podkatalogi dla typów stacji, a te na podkatalogi dla poszczególnych lat.
+  W katalogach dla typów stacji znajdują się pliki tekstowe opisujące zawartość plików z danymi oraz
+  katalogi dla poszczególnych lat zawierające spakowane do formatu zip pliki csv z danymi.
+
+Terminy publikowania danych ze stacji meteorologicznych: 
+- dane ze stacji synoptycznych publikowane są na stronie około 5-go dnia roboczego po zakończeniu miesiąca, z którego pochodzą (np. dane ze stycznia 2021 r. były dostępne w lutym 2021 r.).
+- dane ze stacji klimatologicznych i opadowych z obserwatorem ryczałtowym publikowane są około 10-go dnia roboczego drugiego miesiąca po miesiącu, z którego pochodzą,
+  np. dane ze stycznia 2021 r. będą dostępne ok. 12 marca 2021 r."
+
+
+Zasada grupowania danych w plikach:
+- w roku bieżącym:
+	- pliki zawierające dane ze wszystkich stacji danego typu z jednego miesiąca:
+		- dane terminowe ze wszystkich rodzajów stacji,
+		- dane dobowe ze wszystkich rodzajów stacji,
+	- pliki zawierające dane ze wszystkich stacji danego typu z jednego roku:
+		- dane miesięczne ze wszystkich rodzajów stacji,
+- w latach od 2001 do roku poprzedzającego rok bieżący:
+	- analogicznie jak w oku bieżącym:
+		- dane opadowe dobowe,
+		- dane klimatologiczne dobowe i terminowe
+		- dane miesięczne ze wszystkich stacji,
+	- pliki zawierające dane z jednej stacji z jednego roku:
+		- dane terminowe i dobowe ze  stacji synoptycznych,
+- dane wcześniejsze niż rok 2001 grupowane są w katalogach po pięć lat:
+	- pliki zawierające dane z jednego roku ze wszystkich stacji danego typu:
+		- dane klimatologiczne dobowe i terminowe,
+		- dane opadowe dobowe,
+	- pliki zawierające dane z pięciu lat z jednej stacji:
+		- dane synoptyczne dobowe i terminowe,
+	- pliki zawierające dane z pięciu lat ze wszystkich stacji danego typu:
+		- dane miesięczne ze wszystkich rodzajów stacji.
+
+Statusy danych pomiarowych informacja ogólna:
+spacja - pomiar "wartość"
+8 - brak pomiaru
+9 - brak zjawiska
+
+Jednostki pomiarowe i kody:
+Jednostki pomiarowe podane są w opisach plików.
+W przypadku, gdy podany jest [kod] to pole jest kodowane według klucza stosowanego w depeszach synoptycznych.
+Pole "stan gruntu" kodowane Z/R oznacza Zamarznięty/Rozmarznięty.
+Wskaźnik wentylacji W/N to Wentylowany/Niewentylowany.
+Wskaźnik lodu L/W to Lód/Woda.
+Rodzaj opadu S/W/„ ” (spacja) to Śnieg/Woda/Stacja nie podaje rodzaju opadu.
+Rodzaj pokrywy śnieżnej na stacjach opadowych */sl(śl)/pl(pł)/prz(pr) to pokrywa/ślad/płaty/przerywana.
+Wystąpienie zjawiska 0/1 to Nie/Tak.
+Część zasad kodowania dla synoptycznych danych terminowych zapisana jest w opisie pliku.
+
+UWAGA
+1) Dane psychometryczne dla terminów 01,02,04,05,07,08,10,11,13,14,16,17,19,20,22,23 dla lat poniżej roku 1994 są wątpliwej jakości.
+2) Dla pola "Usłonecznienie" (USLN) do marca 2015 pomiar jest zapisany na koniec godziny czasu miejscowego słonecznego (zapis na godzinę 12:00 to okres 11-12 ).
+Po tej dacie usłonecznienie godzinowe zapisywane jest według miejscowego czasu słonecznego na początek godziny (np. zapis na godzinę 12:00 to okres 12-13)
+3) Do roku 2010 w tabelach bazodanowych część pomiarów ma status "8" brak pomiaru (np. temperatury gruntu, temperatury ekstremalne za 12 godzin, informacje o pokrywie
+śnieżnej dla stacji synoptycznych i opadowych).
+Nie zawsze oznacza to, że na stacjach nie były prowadzone pomiary tych parametrów. Może to oznaczać, że dane te nie zostały wprowadzone do CBDH i są one dostępne w innej formie,
+tzn. w formie plików dostępnych w Wydziale Baz Danych lub na wykazach/dziennikach papierowych w Archiwum PSHM.
+Analogiczna sytuacja ma miejsce w przypadku braku 24 terminów dla stacji synoptycznych do roku 1994, tzn. brakujące terminy mogą być dostępne w innej formie.
+
+
+Errata:
+Stacja Katowice-Muchowiec do 31.12.2018 to stacja Katowice
+Stacja Łódź-Lublinek do 31.12.2018 to stacja Łódź
+Stacja Poznań-Ławica do 31.12.2018 to stacja Poznań
+Stacja Warszawa-Okęcie do 31.12.2018 to stacja Warszawa
+Stacja Wrocław-Strachowice do 31.12.2018 to stacja Wrocław
+Stacja Elbląg-Milejewo do 31.03.2013 to stacja Elbląg w innej lokalizacji, system nie pozwala przechowywać podwójnej nazwy stacji dla tego samego kodu.
+Stacja Resko-Smólsko do 31.12.2014 to stacja Resko, nastąpiła zmiana lokalizacji stacji z zachowaniem kodu.
+Stacja Kołobrzeg-Dźwirzyno do 8.04.2018 to stacja Kołobrzeg, nastąpiła zmiana lokalizacji stacji z zachowaniem kodu.
+Oficjalna nazwa stacji Wojnowice k/Głubczyc to Wojnowice.
+Oficjalna nazwa stacji Gołczowice k/Olkusz to Gołczowice. 
+Oficjalna nazwa stacji Ciężkowice k/Katowic to Ciężkowice.
+Oficjalna nazwa stacji Dobra k/Koła to Dobra.
+Oficjalna nazwa stacji Giżyn k/Gorzowa to Giżyn.
+Oficjalna nazwa stacji Jabłonna k/Poznania to Jabłonna.
+Oficjalna nazwa stacji Brodnica k/Poznania to Brodnica.
+Oficjalna nazwa stacji Jabłonka k/Konina to Jabłonka.
+Oficjalna nazwa stacji Korzeniewo k/Kwidzynia to Korzeniewo.
+
