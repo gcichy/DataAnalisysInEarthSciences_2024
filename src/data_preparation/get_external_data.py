@@ -99,7 +99,7 @@ def break_to_remove_zip_files(input_directory):
     has_zip_files = True
     regex = re.compile(r'.+\.zip')
     while has_zip_files:
-        input(f'\nAby kontynuować rozpakuj (lub usuń jeśli rozpakowane) wszystkie pliki z rozszerzeniem .zip w folderze:\n{input_directory}\ni wciśnij enter\n')
+        input(f'\nAby kontynuować rozpakuj (lub usuń jeśli rozpakowane) wszystkie pliki z rozszerzeniem .zip w folderze:\n{input_directory}.\nNastępnie usuń ostatni wiersz w pliku o_d_12_2023.csv i zapisz plik.\nPo wykonaniu tych kroków wciśnij enter.\n')
         files = os.listdir(input_directory)
         
         if sum([1 if regex.search(f) else 0 for f in files]) == 0:

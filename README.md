@@ -13,6 +13,9 @@ W tym pliku znajduje się funkcja main, po której wykonaniu użytkownik otrzyma
 
 Pliki zaczną się pobierać.
 
-### 3. Manualne sprawdzenie i rozpakowanie lub usunięcie plików .zip, których nie udało się rozpakować automatycznie ###
+### 3. Manualne sprawdzenie i rozpakowanie lub usunięcie plików .zip, których nie udało się rozpakować automatycznie. ###
 
 Program nie będzie nie przejdzie dalej, dopóki jakikolwiek plik .zip będzie znajdował się we wskazanym folderze.
+
+
+### 4. Następnie program rozpocznie wczytywanie i łączenie kolejnych plików do jednego data frame'u, któy docelowo zapisany zostanie jako data/raw/merged_data.csv ###
