@@ -1,24 +1,22 @@
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-import random as rand
 import re
 import os
 import time
 import zipfile
+import sys
+import select
 
 def get_input_dir():
-    directory_path = input('Choose input path for source files:')
- 
-    if not os.path.exists(directory_path):
-        raise Exception("Error loading exgternal data: Provided path doesn't exist")
-    
-    os.chmod(directory_path, 0o700)
-    
-    return directory_path
+    """
+    Function gets location for external data to be stored in
+    """
+    return os.path.join(os.path.dirname(__file__), '..','..','data','external')
+
     
     
-def get_links(url, pattern):
+def _get_links(url, pattern):
     response = requests.get(url)
     bs = BeautifulSoup(response.text, 'html.parser')
     links = bs.find_all('a', href=True)
@@ -26,23 +24,24 @@ def get_links(url, pattern):
     return  [urljoin(url, link['href']) for link in links if re.match(pattern, link.text)]
 
 
-def process_file(file_url, input_directory):
-    file_name = extract_file_name(file_url)
+def _process_file(file_url, input_directory):
+    file_name = _extract_file_name(file_url)
     
-    input_file_path = input_directory + '/' + file_name
-    save_file(file_url, input_file_path)
+    input_file_path = os.path.join(input_directory, file_name)
+    _save_file(file_url, input_file_path)
     
-    unzip_and_delete_folder(input_file_path, input_directory)
+    
+    _unzip_and_delete_folder(input_file_path, input_directory)
     
     time.sleep(0.5)   
 
 
-def extract_file_name(url):
+def _extract_file_name(url):
     file_name = url.split('/')
     return file_name[-1]
 
 
-def save_file(url, save_path):
+def _save_file(url, save_path):
     try:
         response = requests.get(url)
 
@@ -58,7 +57,7 @@ def save_file(url, save_path):
     except Exception as e:
         print(f'Failed to save file {url}\nError: {e}')
     
-def unzip_and_delete_folder(input_file_path, input_directory):
+def _unzip_and_delete_folder(input_file_path, input_directory):
     try:
         with zipfile.ZipFile(input_file_path, 'r') as zip_ref:
             zip_ref.extractall(input_directory)
@@ -70,27 +69,39 @@ def unzip_and_delete_folder(input_file_path, input_directory):
 
 
     
-
-def main():
+def get_external_data():
+    """
+    Function downloading prcipitation data from https://danepubliczne.imgw.pl.
+    It utilizes all other functions created in this package.
+    """
     try:
         input_directory = get_input_dir()
 
         url = 'https://danepubliczne.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/opad/'
         pattern = r'(199.+/|20.+/)'
-        links = get_links(url, pattern)
+        links = _get_links(url, pattern)
         for link in links:
             pattern = r'.*\.zip'
-            zip_files = get_links(link, pattern)
+            zip_files = _get_links(link, pattern)
             print(zip_files)
             for file_url in zip_files:
-                process_file(file_url, input_directory)              
+                _process_file(file_url, input_directory)              
         
         stations_url = 'https://danepubliczne.imgw.pl/pl/datastore/getfiledown/Arch/Telemetria/Meteo/kody_stacji.csv'
-        save_path = input_directory + '/' + 'kody_stacji.csv'
-        save_file(stations_url, save_path)
+        save_path =  os.path.join(input_directory, 'kody_stacji.csv')
+        _save_file(stations_url, save_path)
     except Exception as e:
-        print(f'Error caught: {e}')
+        print(f'Error caught in get_external_data package: {e}')   
         
-          
-if __name__ == "__main__":
- main()
+        
+def break_to_remove_zip_files(input_directory):
+    
+    has_zip_files = True
+    regex = re.compile(r'.+\.zip')
+    while has_zip_files:
+        input(f'\nAby kontynuować rozpakuj (lub usuń jeśli rozpakowane) wszystkie pliki z rozszerzeniem .zip w folderze:\n{input_directory}.\nNastępnie usuń ostatni wiersz w pliku o_d_12_2023.csv i zapisz plik.\nPo wykonaniu tych kroków wciśnij enter.\n')
+        files = os.listdir(input_directory)
+        
+        if sum([1 if regex.search(f) else 0 for f in files]) == 0:
+            has_zip_files = False
+        
