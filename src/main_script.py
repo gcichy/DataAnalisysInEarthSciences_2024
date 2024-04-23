@@ -18,12 +18,13 @@ def main():
         #stations = mrg.subset_stations(input_dir)
         #mrg.merge_all_files(input_dir,stations)
 
-        #raw_data_dir = grd.get_raw_data_dir()
-        #td.transform_data(raw_data_dir)
+        raw_data_dir = grd.get_raw_data_dir()
+        td.transform_data(raw_data_dir)
         data = gpd.get_processed_data()
-        spi_1 = spi.spi_1(data)
-        spi_3 = spi.spi_3(data)
-        spi_12 = spi.spi_12(data)
+        spi.spi_1(data)
+        spi.spi_3(data)
+        spi.spi_12(data)
+
 
     except Exception as e:
         print('Error:' + str(e))
