@@ -123,7 +123,10 @@ def draw_stations_map(input_directory,stations):
 
     stations.plot(ax=ax, color='red', markersize=10)
     plt.title("Stations in Podkarpackie region map")
+    fig.savefig(os.path.join(input_directory, '..','..','images','plot_stacje_mapa.png'))
     plt.show()
+    
+    
 
 
     
