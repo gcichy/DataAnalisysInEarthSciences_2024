@@ -9,22 +9,19 @@ import time
 
 def main():
     try:
-        # ged.get_external_data()
+        ged.get_external_data()
 
         input_dir = ged.get_input_dir()
-        # ged.break_to_remove_zip_files(input_dir)
 
         stations = mrg.subset_stations(input_dir)
         mrg.merge_all_files(input_dir,stations)
 
-        # raw_data_dir = grd.get_raw_data_dir()
-        # td.transform_data(raw_data_dir)
-        # data = gpd.get_processed_data()
-        # spi.spi_1(data)
-        # spi.spi_3(data)
-        # spi.spi_12(data)
-
-
+        raw_data_dir = grd.get_raw_data_dir()
+        td.transform_data(raw_data_dir)
+        data = gpd.get_processed_data()
+        spi.spi_1(data)
+        spi.spi_3(data)
+        spi.spi_12(data)
 
     except Exception as e:
         print('Error:' + str(e))

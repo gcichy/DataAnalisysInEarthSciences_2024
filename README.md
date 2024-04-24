@@ -11,11 +11,40 @@ W tym pliku znajduje się funkcja main, po której wykonaniu użytkownik otrzyma
 
 ### 2. Uruchomienie pliku main_script.py ###
 
-Pliki zaczną się pobierać.
+**2.1 Pobieranie plików.**
+<br>
+Ze względu na ilość plików proces ten potrwa do kilku minut.
+<br><br>
 
-### 3. Manualne sprawdzenie i rozpakowanie lub usunięcie plików .zip, których nie udało się rozpakować automatycznie. ###
+**2.2 Łączenie plików w jeden DataFrame.**
+<br>
+Następnie program rozpocznie wczytywanie i łączenie kolejnych plików do jednego data frame'u, któy docelowo zapisany zostanie jako data/raw/merged_data.csv 
+<br><br>
 
-Program nie będzie nie przejdzie dalej, dopóki jakikolwiek plik .zip będzie znajdował się we wskazanym folderze.
+**2.3 Wyświetlenie mapy stacji** 
+<br>
+Ostatnim etapem wczytywania danych jest wyświetlenie mapy województwa Podkarpackiego z nałożonymi stacjami wykorzystanymi do obliczeń SPI.
+
+Po zamknięciu wykresu program wznowi działanie.
+
+### 3. EDA
+<br>
+W tym kroku wykonana została eksploracyjna analiza danych. W jej ramach uzupełniane/usuwane są wartości brakujące, występuje transformacja kolumn oraz wizualizacje danych. Wynikowy plik tego etapu programu zapisany jest jako: 'data/processed/processed_data.csv'.
+
+Wyświetlony jest przykładowy wykres przetransformowanej kolumny 'Suma dobowa opadów [mm]' z wykorzystaniem przekształcenia Boxa-Coxa zmieniającego rozkład zmiennej.
+
+Po zamknięciu wykresu program wznowi działanie.
+<br><br>
+
+### 4. Obliczanie SPI
+<br>
+Ostatnia część programu realizuje obliczenia 3 wariantów SPI - SPI 1, SPI-3 oraz SPI-12 dla poszczególnych stacji i wynikowe pliki csv umieszcza w folderze 'data/processed/' jako 'spi_value_X.csv'
+
+Po zapisie tych plików program kończy swoje działanie.
 
 
-### 4. Następnie program rozpocznie wczytywanie i łączenie kolejnych plików do jednego data frame'u, któy docelowo zapisany zostanie jako data/raw/merged_data.csv ###
+<br>
+
+**Dodatkowe informacje**
+
+Najważniejsze wizualizacje z etapów EDA oraz SPI znajdują się w folderze immages/.
