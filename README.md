@@ -4,7 +4,7 @@ Celem poniższego projektu jest wyliczenie miary SPI dla wybranego obszaru w Pol
 
 Szczegółowe instrukcje i wytyczne dostępne są w pliku: docs/projekt1_instrukcja.pdf.
 
-## Kroki, które należy wykonać w celu odtworzenia przeprowadzonej analizy:##
+## Kroki, które należy wykonać w celu odtworzenia przeprowadzonej analizy:
 ### 1. Otwarcie pliku src/main_script.py. ###
 
 W tym pliku znajduje się funkcja main, po której wykonaniu użytkownik otrzyma wyniki analizy.
@@ -47,4 +47,4 @@ Po zapisie tych plików program kończy swoje działanie.
 
 **Dodatkowe informacje**
 
-Najważniejsze wizualizacje z etapów EDA oraz SPI znajdują się w folderze immages/.
+Najważniejsze wizualizacje z etapów EDA oraz SPI znajdują się w folderze images/.
