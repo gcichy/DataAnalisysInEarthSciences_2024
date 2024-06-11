@@ -101,3 +101,24 @@ def crop_grid(hex_gdf, bikepath_gdf, area_gdf, epsg):
     except Exception as e:
         raise Exception(f"Error in load_and_transform.crop_grid: {e}")
 
+
+def processed_data_exists():
+    directory_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'processed')
+    parquet_files = [file for file in os.listdir(directory_path) if file.endswith('.parquet')]
+
+    if len(parquet_files) > 0:
+        print("Parquet files found:", parquet_files)
+        return True
+    else:
+        print("No Parquet files found.")
+        return False
+
+def load_processed_data(file_name):
+    try:
+        path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'processed')
+        full_path = os.path.join(path, file_name)
+
+        gdf = gpd.read_parquet(full_path)
+        return gdf
+    except Exception as e:
+        raise Exception(f"Error in load_and_transform.load_processed_data: {e}")
